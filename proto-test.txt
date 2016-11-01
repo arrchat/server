@@ -1,0 +1,11 @@
+{"packet_type":0,"query_id":0}  # lista providerow
+{"packet_type":1,"query_id":1,"provider_name":"dummy"}  # logowanie do providera
+{"packet_type":2,"query_id":2,"provider_id":0}  # pobranie kontaktow z providera
+{"packet_type":3,"query_id":3,"provider_id":0,"contact_name":"echo"}  # pobranie historii czatu kontaktu
+{"packet_type":4,"query_id":4,"provider_id":0,"contact_name":"echo","text":"chuj kurwa! :D"}  # wyslanie wiadomosci do kontaktu
+{"packet_type":3,"query_id":5,"provider_id":0,"contact_name":"echo"}  # znowu historia (ten sam packet type)
+{"packet_type":5,"query_id":6,"provider_id":0,"contact_name":"echo","new_text":"edytowana!", "msg_id":"bM__S6FV9g"}  # edycja wiadmosci
+{"packet_type":3,"query_id":7,"provider_id":0,"contact_name":"echo"}  # historia po raz 3
+{"packet_type":6,"query_id":8,"provider_id":0,"contact_name":"echo","msg_id":"IEonN71IcA"}  # skasowanie wiadomosci
+{"packet_type":3,"query_id":9,"provider_id":0,"contact_name":"echo"}  # znowu historia
+{"packet_type":4,"query_id":4,"provider_id":0,"contact_name":"bukkitshoutbox","text":"test bardzo"}

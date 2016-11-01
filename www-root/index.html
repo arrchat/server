@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Websocket</title>
+    <!--<script src="http://www.juniorjpdj.cba.pl/minify-js/js.php?js=https://raw.githubusercontent.com/msgpack/msgpack-javascript/master/msgpack.codec.js"></script>-->
+    <script src="msgpack.js"></script>
+    <script>
+var wsproto;
+if (window.location.protocol == 'https:'){
+    wsproto = 'wss://';
+} else {
+    wsproto = 'ws://';
+}
+var ws = new WebSocket(wsproto + window.location.host + "/ws");
+ws.binaryType = 'arraybuffer';
+var data;
+ws.onmessage = function (evt){
+    var p = document.createElement("p");
+    p.appendChild(document.createTextNode('Server: ' + JSON.stringify(msgpack.unpack(new Uint8Array(evt.data)), null, ' ')));
+    document.getElementById('console').appendChild(p);
+};
+function send(){
+    ws.send(new Uint8Array(msgpack.pack(JSON.parse(document.getElementById('input').value))), {binary: true});
+    var p = document.createElement("p");
+    p.appendChild(document.createTextNode('Client: ' + document.getElementById('input').value));
+    document.getElementById('console').appendChild(p);
+    document.getElementById('input').value = "";
+};
+</script>
+</head>
+<body>
+<div id="console"></div>
+<form onsubmit="send(); return false;"><input id="input" style="width: 700px" /></form>
+</body>
+</html>

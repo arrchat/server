@@ -1,0 +1,67 @@
+﻿TODO: zalaczniki w wiadomosciach, serwery do wpisania w providery, wymaganie w providerach np samego hasla/usera a nie obu
+
+typy pakietow wysylanych przez clienta:
+0 - get_providers
+1 - log_in_provider
+2 - get_contacts
+3 - get_chat_history
+4 - send_message
+5 - edit_message
+6 - delete_message
+7 - change_status
+
+typy pakietow wysylanych przez serwer:
+0 - response
+1 - server_info
+2 - new_contact
+3 - new_message
+4 - message_deleted
+5 - message_edited
+6 - contact_status_change
+7 - memberlist_change
+
+typy ficzerow providerow:
+"delete_msg", "edit_msg", "rename_contact", "delete_contact", "status_change", "status_description"
+
+query_id inkrementuje sie
+query = {"query_id": query_id.toString(16), "packet_type": x}
+response = {"response_id": query_id z query}
+id i typy osobne dla serwera i clienta
+
+klient laczy sie z serwerem przez websocket
+
+klient pyta o providery:
+{"packet_type": 0, "query_id": "0"}
+
+serwer odpowiada listą providerow:
+{"response_id": "0", "providers":[{"visibleName": "Test provider", "name": "dummy", "logo": "dummy.png", "auth": false, "features":["delete_msg", "edit_msg"]}, {"visibleName": "Facebook", "name": "fb", "logo": "fb.png", "auth": true, "features":[]}]}
+
+klient prosi o dostep do providera "dummy" ktory nie wymaga autentykacji:
+{"packet_type": 1, "query_id": "1", "provider_name": "dummy"}
+
+serwer zwraca id providera (pomyslne logowanie):
+{"response_id": "1", "provider_id": 0}
+
+klient prosi o dostep do providera "fb" ktory wymaga autentykacji:
+{"packet_type": 1, "query_id": "2", "provider_name": "fb", "username": "kaziciota", "password": "nachujsiepatrzysz"}
+
+serwer zwraca id bledu (nie udane logowanie):
+{"response_id": "2", "provider_id": -3}
+
+klient prosi o dostep do providera "dfhfghfgh" ktory nie istnieje:
+{"packet_type": 1, "query_id": "3", "provider_name": "dfhfghfgh"}
+
+serwer zwraca id bledu (nie udane logowanie):
+{"response_id": "3", "provider_id": -1}
+
+klient prosi o liste kontaktow providera o id 0 (naszego dummy):
+{"packet_type": 2, "query_id": "4", "provider_id": 0}
+
+serwer odpowiada lista kontaktow:
+{"response_id": "4", "contacts":[{"visible_name": "Echo", "name": "echo", "avatar": "avatar.png", "desc": "I will repeat your every message <3"}]}
+
+klient wysyla wiadomosc do kontaktu "echo" z providera o id 0:
+{"packet_type": 4, "query_id": "5", "provider_id": 0, "contact_name": "echo", "text": "kazi ciota!"}
+
+serwer odsyla id wiadomosci (ujemne id to kod bledu):
+{"response_id": "5", "msg_id": 0}
