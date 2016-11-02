@@ -21,7 +21,8 @@ class DummyProviderPlugin(object):
 
 
 class DummyProvider(BaseProvider):
-    visible_name = 'Test provider'
+    visible_name = 'Dummy'
+    desc = 'Test provider'
     name = 'dummy'
 
     def __init__(self, client):
@@ -43,7 +44,8 @@ class DummyProvider(BaseProvider):
 
 class DummyAuthProvider(DummyProvider):
     auth = True
-    visible_name = 'Test provider with auth'
+    visible_name = 'Dummy auth'
+    desc = 'Test provider with auth'
     name = 'dummy_auth'
 
     def login(self, username, password):
