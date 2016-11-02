@@ -8,6 +8,7 @@ class BaseProvider(object):
     auth = False
     visible_name = ''
     name = ''
+    desc = ''
     logo = 'http://svg2stl.com/api/preview/567908aa9f2e1c6c3904b58c'
     color = 'ce4847'
     features = ()
@@ -20,7 +21,8 @@ class BaseProvider(object):
 
     @classmethod
     def get_info(cls):
-        return {'visibleName': cls.visible_name, 'name': cls.name, 'logo': cls.logo, 'auth': cls.auth, 'features': cls.features, 'color': int(cls.color, 16)}
+        return {'visibleName': cls.visible_name, 'name': cls.name, 'desc': cls.desc, 'logo': cls.logo,
+                'auth': cls.auth, 'features': cls.features, 'color': int(cls.color, 16)}
 
     @property
     def id(self):
